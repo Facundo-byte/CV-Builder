@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import { personData } from "./Data.jsx";
 
 export default function Interfaz() {
   return (
@@ -45,22 +46,22 @@ export function MoreInfo({ title }) {
         <form className="Moreinfo">
           <label>
             Full name
-            <input type="text" />
+            <input type="text" value={personData.name} />
           </label>
 
           <label>
             Email
-            <input type="text" />
+            <input type="text" value={personData.email} />
           </label>
 
           <label>
             Phone number
-            <input type="text" />
+            <input type="text" value={personData.phone} />
           </label>
 
           <label>
             Location
-            <input type="text" />
+            <input type="text" value={personData.location} />
           </label>
 
           <button>Submit</button>
@@ -88,26 +89,17 @@ export function Curriculum() {
   return (
     <div className="mainCV">
       <div className="General">
-        <h1>Ken Kaneki</h1>
+        <h1>{personData.name}</h1>
         <div className="Social">
-          <h3>kenkaneki@anteiku.com</h3>
-          <h3>7012341234</h3>
-          <h3>Tokyo, Japan</h3>
+          <h3>{personData.email}</h3>
+          <h3>{personData.phone}</h3>
+          <h3>{personData.location}</h3>
         </div>
       </div>
 
       <div className="Summary">
         <h2 className="Title">Professional Summary</h2>
-        <p>
-          Results-driven Software Engineer with 5 years of experience designing,
-          developing, and optimizing scalable applications and systems. Skilled
-          in full-stack development, cloud technologies, and agile
-          methodologies, with a strong focus on writing clean, maintainable code
-          and delivering high-quality solutions that meet business needs. Adept
-          at collaborating across cross-functional teams, solving complex
-          technical challenges, and continuously learning new tools and
-          frameworks to drive innovation and efficiency.
-        </p>
+        <p>{personData.summary}</p>
       </div>
 
       <div className="Skills">
