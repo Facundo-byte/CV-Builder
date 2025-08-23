@@ -1,0 +1,103 @@
+/*MAIN CONTAINERS */
+body {
+  padding: 0;
+  margin: 0 0 0 0;
+}
+
+li,
+ul {
+  padding: 0px;
+  margin: 0;
+  list-style: none;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  box-sizing: border-box;
+}
+
+.contIzquierdo {
+  width: 500px;
+  min-height: 100%;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.contDerecho {
+  min-width: 800px;
+  max-width: 1000px;
+  min-height: 100%;
+  background-color: rgb(116, 116, 116);
+}
+
+/* CONTAINERS DE INFO */
+
+.Info {
+  background-color: rgb(65, 65, 65);
+  min-width: 200px;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.Base {
+  display: flex;
+  flex-direction: row;
+  gap: 75px;
+}
+
+.Moreinfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Curriculum */
+
+.mainCV {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 75px 10px 75px;
+}
+
+.General,
+.Summary,
+.Skills,
+.Education,
+.Work {
+  display: flex;
+  flex-direction: column;
+}
+
+.Social {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.ItemsSkills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0px 0px 10px 0px;
+}
+
+.LocationandDate {
+  display: flex;
+  flex-direction: row;
+  gap: 140px;
+}
