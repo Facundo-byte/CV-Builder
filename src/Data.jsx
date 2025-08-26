@@ -1,8 +1,56 @@
-export let personData = {
-  name: "Ken Kaneki",
-  email: "kenkaneki@anteiku.com",
-  phone: "7012341234",
-  location: "Tokyo, Japan",
-  summary:
-    "Results-driven Software Engineer with 5 years of experience designing, developing, and optimizing scalable applications and systems. Skilled in full-stack development, cloud technologies, and agile methodologies, with a strong focus on writing clean, maintainable code and delivering high-quality solutions that meet business needs. Adept at collaborating across cross-functional teams, solving complex technical challenges, and continuously learning new tools and frameworks to drive innovation and efficiency.",
-};
+import { useState } from "react";
+
+export default function DynamicInputs() {
+  const [inputs, setInputs] = useState([]); // array con los valores de cada input
+  const [items, setItems] = useState([]);   // array final con los ítems ya confirmados
+
+  // Agregar un nuevo input vacío
+  function handleAddInput() {
+    setInputs([...inputs, ""]);
+  }
+
+  // Actualizar el valor de un input específico
+  function handleChangeInput(index, value) {
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
+  }
+
+  // Confirmar los valores y pasarlos a items
+  function handleSubmit(e) {
+    e.preventDefault();
+    setItems([...items, ...inputs]);
+    setInputs([]); // limpiar inputs después de submit
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        {inputs.map((input, index) => (
+          <input
+            key={index}
+            type="text"
+            value={input}
+            onChange={(e) => handleChangeInput(index, e.target.value)}
+            placeholder={`Item ${index + 1}`}
+          />
+        ))}
+
+        <div>
+          <button type="button" onClick={handleAddInput}>
+            Add
+          </button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      <h3>Items confirmados:</h3>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index+1}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+

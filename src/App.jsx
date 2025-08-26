@@ -1,27 +1,35 @@
 import { useState } from "react";
 import "./App.css";
-import { personData } from "./Data.jsx";
 
 export default function Interfaz() {
+  const [person, setPerson] = useState({
+    name: "Ken Kaneki",
+    email: "kenkaneki@anteiku.com",
+    phone: "7012341234",
+    location: "Tokyo, Japan",
+    summary: "Results-driven Software Engineer with 5 years of experience designing, developing, and optimizing scalable applications and systems. Skilled in full-stack development, cloud technologies, and agile methodologies, with a strong focus on writing clean, maintainable code and delivering high-quality solutions that meet business needs. Adept at collaborating across cross-functional teams, solving complex technical challenges, and continuously learning new tools and frameworks to drive innovation and efficiency."
+  });
+  const [items, setItems] = useState([]);
+
   return (
     <div className="mainContainer">
       <div className="contIzquierdo">
-        <Information title="General information" />
-        <Information title="Professional summary" />
-        <Information title="Skills" />
-        <Information title="Education" />
-        <Information title="Work experience" />
-        <Information title="Custom information" />
+        <Information title="General information"person={person}setPerson={setPerson} />
+        <Information title="Professional summary" person={person} setPerson={setPerson}/>
+        <Information title="Skills" person={person} setPerson={setPerson} items = {items} setItems = {setItems}/>
+        <Information title="Education" person={person} setPerson={setPerson} />
+        <Information title="Work experience" person={person} setPerson={setPerson}/>
+        <Information title="Custom information" person={person} setPerson={setPerson}/>
       </div>
       <div className="contDerecho">
-        <Curriculum />
+        <Curriculum person = {person} items = {items}/>
       </div>
     </div>
   );
 }
 
 /*botones*/
-export function Information({ title }) {
+export function Information({ title, person, setPerson, items, setItems }) {
   const [expand, setExpand] = useState(false);
 
   function handleClick() {
@@ -34,90 +42,170 @@ export function Information({ title }) {
         <h2>{title}</h2>
         <button onClick={handleClick}>X</button>
       </div>
-      {expand ? <MoreInfo title={title} /> : null}
+      {expand ? <MoreInfo title={title} person = {person} setPerson = {setPerson} items = {items} setItems = {setItems}/> : null}
     </div>
   );
 }
 
-export function MoreInfo({ title }) {
+export function MoreInfo({ title, person, setPerson, items, setItems }) {
+  const [aux, setAux] = useState({
+    aname: "",
+    aemail: "",
+    aphone: "",
+    alocation: "",
+    asummary: "",
+  });
+  
   switch (title) {
     case "General information":
-      return (
-        <form className="Moreinfo">
-          <label>
-            Full name
-            <input type="text" value={personData.name} />
-          </label>
-
-          <label>
-            Email
-            <input type="text" value={personData.email} />
-          </label>
-
-          <label>
-            Phone number
-            <input type="text" value={personData.phone} />
-          </label>
-
-          <label>
-            Location
-            <input type="text" value={personData.location} />
-          </label>
-
-          <button>Submit</button>
-        </form>
-      );
+      return <GeneralInfo aux= {aux} setAux= {setAux} person={person} setPerson={setPerson}/>;
     case "Professional summary":
-      return (
-        <form className="MoreInfo">
-          <label>
-            Professional summary
-            <input type="textarea" />
-          </label>
-
-          <button>Submit</button>
-        </form>
-      );
+      return <ProSummary aux= {aux} setAux= {setAux} person={person} setPerson={setPerson}/>;
+    case "Skills":
+      return <Skills items = {items} setItems = {setItems}/>
     default:
       return null;
   }
 }
 
+/* EXPANDS BOTONES*/
+
+export function GeneralInfo({aux, setAux, person, setPerson}){
+  function handleSubmitGeneral(e){
+    e.preventDefault();
+    setPerson({...person, name: aux.aname, email: aux.aemail, phone: aux.aphone, location: aux.alocation})
+  }
+
+  return(
+    <form className="Moreinfo" onSubmit= {handleSubmitGeneral}>
+          <label>
+            Full name
+            <input
+              type="text"
+              value={aux.aname}
+              onChange={(e) => setAux({ ...aux, aname: e.target.value })}
+            />
+          </label>
+
+          <label>
+            Email
+            <input
+              type="text"
+              value={aux.aemail}
+              onChange={(e) =>
+                setAux({ ...aux, aemail: e.target.value })
+              }
+            />
+          </label>
+
+          <label>
+            Phone number
+            <input
+              type="text"
+              value={aux.aphone}
+              onChange={(e) =>
+                setAux({ ...aux, aphone: e.target.value })
+              }
+            />
+          </label>
+
+          <label>
+            Location
+            <input
+              type="text"
+              value={aux.alocation}
+              onChange={(e) =>
+                setAux({ ...aux, alocation: e.target.value })
+              }
+            />
+          </label>
+          <button type= "submit">Submit</button>
+        </form>
+  )
+}
+
+export function ProSummary({aux,setAux, person, setPerson}){
+  function handleSubmitPro(e){
+    e.preventDefault();
+    setPerson({...person, summary: aux.asummary})
+  }
+
+  return(
+    <form className="MoreInfo" onSubmit= {handleSubmitPro}>
+          <label>
+            Professional summary
+            <input type="textarea" value = {aux.asummary} onChange={(e) => setAux({...aux, asummary: e.target.value})}/>
+          </label>
+
+          <button>Submit</button>
+        </form>
+  )
+}
+
+export function Skills({items, setItems}){
+  const [inputs, setInputs] = useState([]);
+  let newInputs = [];
+
+  function handleChangeInput(index, content){
+    newInputs = [...inputs];
+    newInputs[index]= content;
+    setInputs(newInputs)
+  }
+
+  function handleAddInput(){
+    setInputs([...inputs, ""]);
+  }
+
+  function handleSubmit(e){
+    e.preventDefault();
+    setItems([...items, ...inputs])
+    setInputs([]);
+  }
+  return(
+    <form onSubmit= {handleSubmit}>
+      {inputs.map((content, index) => (
+        <input
+        type = "text"
+        key ={index}
+        value = {content}
+        onChange = {e => handleChangeInput(index, e.target.value)}
+        placeholder = {`Item ${index}`}
+        />
+      ))}
+
+      <div>
+        <button type = "button" onClick = {handleAddInput}>Add</button>
+        <button type= 'submit'>Submit</button>
+        <button type = "button" onClick = {() => setItems([])}>Delete Skills</button>
+      </div>
+    </form>
+  )
+}
 /* cv */
 
-export function Curriculum() {
+export function Curriculum({ person, items }) {
   return (
     <div className="mainCV">
       <div className="General">
-        <h1>{personData.name}</h1>
+        <h1>{person.name}</h1>
         <div className="Social">
-          <h3>{personData.email}</h3>
-          <h3>{personData.phone}</h3>
-          <h3>{personData.location}</h3>
+          <h3>{person.email}</h3>
+          <h3>{person.phone}</h3>
+          <h3>{person.location}</h3>
         </div>
       </div>
 
       <div className="Summary">
         <h2 className="Title">Professional Summary</h2>
-        <p>{personData.summary}</p>
+        <p>{person.summary}</p>
       </div>
 
       <div className="Skills">
         <h2 className="Title">Skills</h2>
         <ul className="ItemsSkills">
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
-          <li>JavaScript</li>
+          {items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
         </ul>
       </div>
 
