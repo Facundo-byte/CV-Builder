@@ -11,6 +11,16 @@ ul {
   list-style: none;
 }
 
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+button{
+  cursor: pointer;
+}
+
 .mainContainer {
   display: flex;
   justify-content: center;
@@ -39,7 +49,7 @@ ul {
 
 .Info {
   background-color: rgb(65, 65, 65);
-  min-width: 200px;
+  width: 350px;
   min-height: 50px;
   display: flex;
   flex-direction: column;
@@ -60,11 +70,17 @@ ul {
   gap: 20px;
 }
 
-label {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+#titleslabel{
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
 }
+
+#titleslabel:hover{
+  cursor: pointer;
+}
+
 
 /* Curriculum */
 

@@ -39,8 +39,10 @@ export function Information({ title, person, setPerson, items, setItems }) {
   return (
     <div className="Info">
       <div className="Base">
-        <h2>{title}</h2>
-        <button onClick={handleClick}>X</button>
+        <label id="titleslabel">
+          <h2>{title}</h2>
+          <button onClick={handleClick}>X</button>
+        </label>
       </div>
       {expand ? <MoreInfo title={title} person = {person} setPerson = {setPerson} items = {items} setItems = {setItems}/> : null}
     </div>
@@ -63,6 +65,8 @@ export function MoreInfo({ title, person, setPerson, items, setItems }) {
       return <ProSummary aux= {aux} setAux= {setAux} person={person} setPerson={setPerson}/>;
     case "Skills":
       return <Skills items = {items} setItems = {setItems}/>
+    case "Education":
+      return <Education/>
     default:
       return null;
   }
@@ -177,6 +181,66 @@ export function Skills({items, setItems}){
         <button type = "button" onClick = {handleAddInput}>Add</button>
         <button type= 'submit'>Submit</button>
         <button type = "button" onClick = {() => setItems([])}>Delete Skills</button>
+      </div>
+    </form>
+  )
+}
+
+export function Education({eds, setEds}){
+  const [inputs, setInputs] = useState([]);
+  const [content, setContent] = useState({school: "", location: "", degree: "", description: ""});
+  let newInputs = []
+
+  function handleChangeInput(index, field, data){
+    setContent({...content, [field]: data})
+    newInputs = [...inputs];
+    newInputs[index] = content;
+    setInputs(newInputs);
+  }
+
+  function handleAddInput(){
+    setInputs([...inputs, {school: "", location: "", degree: "", description: ""}]);
+  }
+
+  function handleSubmit(e){
+    e.preventDefault();
+    setEds([...eds, ...inputs]);
+    setInputs([]);
+  }
+
+  return(
+    <form>
+      {inputs.map((item, index) => (
+        <div key = {index}>
+          <h2>School History {index}</h2>
+
+          <label>
+            School
+            <input type= "text" value={item.school} onChange= {e => handleChangeInput(index, "school", e.target.value)}/>
+          </label>
+
+          <label>
+            School location
+            <input type= "text" value = {item.location} onChange= {e => handleChangeInput(index, e.target.value)}/>
+          </label>
+
+          <label>
+            Degree
+            <input type= "text" value = {item.degree} onChange= {e => handleChangeInput(index, e.target.value)}/>
+          </label>
+
+          <label>
+            Degree description
+            <input type= "text" value = {item.description} onChange= {e => handleChangeInput(index, e.target.value)}/>
+          </label>
+
+        </div> 
+      ))}
+
+      <div>
+        <button type= "button" onClick= {handleAddInput}>Add</button>
+        <button type = "submit" onClick = {handleSubmit}>Submit</button>
+        <button>Clean Education</button>
       </div>
     </form>
   )
