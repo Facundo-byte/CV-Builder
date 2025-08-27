@@ -66,6 +66,7 @@ export default function Curriculum({ person, items, eds, works, custom }) {
           <h2 className = "Title">{custom.title}</h2>
           <p>{custom.description}</p>
       </div>
+
     </div>
   );
 }
@@ -95,3 +96,6 @@ export function EdandWork({
     </div>
   );
 }
+
+/* PRINT COMPONENT */
+

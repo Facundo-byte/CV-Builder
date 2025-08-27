@@ -50,6 +50,7 @@ export default function Interface() {
         <Information title="Education" setEds = {setEds}/>
         <Information title="Work experience" setWorks = {setWorks}/>
         <Information title="Custom information" setCustom = {setCustom}/>
+        <button>Print as PDF</button>
       </div>
       <div className="contDerecho">
         <Curriculum person = {person} items = {items} eds = {eds} works = {works} custom ={custom}/>
