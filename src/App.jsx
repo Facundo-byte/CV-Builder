@@ -10,26 +10,34 @@ export default function Interfaz() {
     summary: "Results-driven Software Engineer with 5 years of experience designing, developing, and optimizing scalable applications and systems. Skilled in full-stack development, cloud technologies, and agile methodologies, with a strong focus on writing clean, maintainable code and delivering high-quality solutions that meet business needs. Adept at collaborating across cross-functional teams, solving complex technical challenges, and continuously learning new tools and frameworks to drive innovation and efficiency."
   });
   const [items, setItems] = useState([]);
+  const [eds, setEds] = useState([{
+    school: "Massachusetts Institute of Technology",
+    location: "Massachusetts, United States",
+    degree: "Bachelor's in Computer Science",
+    description: "As a computer science major, I've learned how to think critically and solve problems using computational approaches. I've studied programming languages, algorithms, and data structures to build efficient software, while also gaining an understanding of computer systems, networks, and operating systems. I've explored areas like databases, cybersecurity, and artificial intelligence, which showed me how computer science connects to real-world applications. Through these experiences, I've developed strong problem-solving, logical reasoning, and analytical skills.",
+    startdate: "20/08/22",
+    enddate: "30/01/27"
+  }])
 
   return (
     <div className="mainContainer">
       <div className="contIzquierdo">
         <Information title="General information"person={person}setPerson={setPerson} />
         <Information title="Professional summary" person={person} setPerson={setPerson}/>
-        <Information title="Skills" person={person} setPerson={setPerson} items = {items} setItems = {setItems}/>
-        <Information title="Education" person={person} setPerson={setPerson} />
+        <Information title="Skills" setItems = {setItems}/>
+        <Information title="Education" setEds = {setEds}/>
         <Information title="Work experience" person={person} setPerson={setPerson}/>
         <Information title="Custom information" person={person} setPerson={setPerson}/>
       </div>
       <div className="contDerecho">
-        <Curriculum person = {person} items = {items}/>
+        <Curriculum person = {person} items = {items} eds = {eds}/>
       </div>
     </div>
   );
 }
 
 /*botones*/
-export function Information({ title, person, setPerson, items, setItems }) {
+export function Information({ title, person, setPerson, setItems, setEds }) {
   const [expand, setExpand] = useState(false);
 
   function handleClick() {
@@ -44,12 +52,12 @@ export function Information({ title, person, setPerson, items, setItems }) {
           <button onClick={handleClick}>X</button>
         </label>
       </div>
-      {expand ? <MoreInfo title={title} person = {person} setPerson = {setPerson} items = {items} setItems = {setItems}/> : null}
+      {expand ? <MoreInfo title={title} person = {person} setPerson = {setPerson} setItems = {setItems} setEds={setEds}/> : null}
     </div>
   );
 }
 
-export function MoreInfo({ title, person, setPerson, items, setItems }) {
+export function MoreInfo({ title, person, setPerson, setItems, setEds }) {
   const [aux, setAux] = useState({
     aname: "",
     aemail: "",
@@ -64,9 +72,9 @@ export function MoreInfo({ title, person, setPerson, items, setItems }) {
     case "Professional summary":
       return <ProSummary aux= {aux} setAux= {setAux} person={person} setPerson={setPerson}/>;
     case "Skills":
-      return <Skills items = {items} setItems = {setItems}/>
+      return <Skills setItems = {setItems}/>
     case "Education":
-      return <Education/>
+      return <Education setEds = {setEds}/>
     default:
       return null;
   }
@@ -146,7 +154,7 @@ export function ProSummary({aux,setAux, person, setPerson}){
   )
 }
 
-export function Skills({items, setItems}){
+export function Skills({setItems}){
   const [inputs, setInputs] = useState([]);
   let newInputs = [];
 
@@ -162,19 +170,26 @@ export function Skills({items, setItems}){
 
   function handleSubmit(e){
     e.preventDefault();
-    setItems([...items, ...inputs])
-    setInputs([]);
+    setItems([...inputs])
   }
+  function handleDeleteInput(e, index){
+    e.preventDefault;
+    setInputs(inputs.filter((item, i) => i !== index))
+  }
+
   return(
     <form onSubmit= {handleSubmit}>
       {inputs.map((content, index) => (
-        <input
-        type = "text"
-        key ={index}
-        value = {content}
-        onChange = {e => handleChangeInput(index, e.target.value)}
-        placeholder = {`Item ${index}`}
-        />
+        <div className = "Base">
+          <input
+            type = "text"
+            key ={index}
+            value = {content}
+            onChange = {e => handleChangeInput(index, e.target.value)}
+            placeholder = {`Item ${index}`}
+          />
+          <button type= "button" onClick = {e => handleDeleteInput(e, index)}>O</button>
+        </div>
       ))}
 
       <div>
@@ -186,33 +201,44 @@ export function Skills({items, setItems}){
   )
 }
 
-export function Education({eds, setEds}){
+export function Education({setEds}){
   const [inputs, setInputs] = useState([]);
-  const [content, setContent] = useState({school: "", location: "", degree: "", description: ""});
   let newInputs = []
 
   function handleChangeInput(index, field, data){
-    setContent({...content, [field]: data})
     newInputs = [...inputs];
-    newInputs[index] = content;
-    setInputs(newInputs);
+    newInputs[index] = {...newInputs[index], [field]: data};
+    setInputs([...newInputs]);
   }
 
   function handleAddInput(){
-    setInputs([...inputs, {school: "", location: "", degree: "", description: ""}]);
+    setInputs([...inputs, {school: "", location: "", degree: "", description: "", startdate: "", enddate: ""}]);
   }
 
   function handleSubmit(e){
     e.preventDefault();
-    setEds([...eds, ...inputs]);
-    setInputs([]);
+    setEds([...inputs]);
+  }
+
+  function handleClean(e){
+    e.preventDefault();
+    setEds([]);
+  }
+
+  function handleDeleteInput(e, index){
+    e.preventDefault();
+    setInputs(inputs.filter((input, i) => i !== index))
   }
 
   return(
     <form>
       {inputs.map((item, index) => (
         <div key = {index}>
-          <h2>School History {index}</h2>
+          <div className = "Base">
+            <h2>School History {index}</h2>
+            <button type = "button" onClick = {e => handleDeleteInput(e, index)}>O</button>
+          </div>
+          
 
           <label>
             School
@@ -221,33 +247,50 @@ export function Education({eds, setEds}){
 
           <label>
             School location
-            <input type= "text" value = {item.location} onChange= {e => handleChangeInput(index, e.target.value)}/>
+            <input type= "text" value = {item.location} onChange= {e => handleChangeInput(index, "location", e.target.value)}/>
           </label>
 
           <label>
             Degree
-            <input type= "text" value = {item.degree} onChange= {e => handleChangeInput(index, e.target.value)}/>
+            <input type= "text" value = {item.degree} onChange= {e => handleChangeInput(index, "degree", e.target.value)}/>
           </label>
 
           <label>
             Degree description
-            <input type= "text" value = {item.description} onChange= {e => handleChangeInput(index, e.target.value)}/>
+            <input type= "text" value = {item.description} onChange= {e => handleChangeInput(index, "description", e.target.value)}/>
           </label>
+
+        <div className = "datescontainer">
+          <label>
+            Start Date
+            <input type= "date" value = {item.startdate} onChange ={e=> handleChangeInput(index, "startdate", e.target.value)}/>
+          </label>
+
+          <label>
+            End Date
+            <input type= "date" value = {item.enddate} onChange ={e=> handleChangeInput(index, "enddate", e.target.value)}/>
+          </label>
+        </div>
+          
 
         </div> 
       ))}
 
-      <div>
+      <div className = "buttonContainer">
         <button type= "button" onClick= {handleAddInput}>Add</button>
         <button type = "submit" onClick = {handleSubmit}>Submit</button>
-        <button>Clean Education</button>
+        <button onClick = {handleClean}>Clean Education</button>
       </div>
     </form>
   )
 }
+
+export function WorkExp(){
+
+}
 /* cv */
 
-export function Curriculum({ person, items }) {
+export function Curriculum({ person, items, eds }) {
   return (
     <div className="mainCV">
       <div className="General">
@@ -276,16 +319,19 @@ export function Curriculum({ person, items }) {
       <div className="Education">
         <h2 className="Title">Education</h2>
         <ul>
-          <li>
+          {eds.map((ed, index) => (
+            <li key= {index}>
             <EdandWork
-              place="Massachusetts Institute of Technology"
-              location="Massachusetts, United States"
-              startdate="20/08/22"
-              enddate="30/01/27"
-              title="Bachelor's in Computer Science"
-              desc="As a computer science major, I've learned how to think critically and solve problems using computational approaches. I've studied programming languages, algorithms, and data structures to build efficient software, while also gaining an understanding of computer systems, networks, and operating systems. I've explored areas like databases, cybersecurity, and artificial intelligence, which showed me how computer science connects to real-world applications. Through these experiences, I've developed strong problem-solving, logical reasoning, and analytical skills."
+              place={ed.school}
+              location={ed.location}
+              startdate={ed.startdate}
+              enddate={ed.enddate}
+              title={ed.degree}
+              desc={ed.description}
             />
           </li>
+          ))}
+          
         </ul>
       </div>
 
