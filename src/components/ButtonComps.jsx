@@ -1,4 +1,7 @@
 import { useState } from "react";
+import arrowdown from "../assets/arrowdown.png";
+import arrowup from "../assets/arrowup.png";
+import trash from "../assets/trash.png";
 
 /* BUTTONS */
 export default function Information({ title, person, setPerson, setItems, setEds, setWorks, setCustom }) {
@@ -10,12 +13,11 @@ export default function Information({ title, person, setPerson, setItems, setEds
 
   return (
     <div className="Info">
-      <div className="Base">
         <label id="titleslabel">
           <h2>{title}</h2>
-          <button onClick={handleClick}>X</button>
+          <button onClick={handleClick}><img src={expand ? arrowup : arrowdown} alt="a"/></button>
         </label>
-      </div>
+      
       {expand ? <MoreInfo title={title} person = {person} setPerson = {setPerson} setItems = {setItems} setEds={setEds} setWorks= {setWorks} setCustom= {setCustom}/> : null}
     </div>
   );
@@ -101,7 +103,8 @@ export function GeneralInfo({aux, setAux, person, setPerson}){
               placeholder= "Enter your location"
             />
           </label>
-          <button type= "submit">Submit</button>
+          
+          <button type= "submit" className= "submitbutton">Submit</button>
         </form>
   )
 }
@@ -113,13 +116,13 @@ export function ProSummary({aux,setAux, person, setPerson}){
   }
 
   return(
-    <form className="MoreInfo" onSubmit= {handleSubmitPro}>
+    <form className="Moreinfo" onSubmit= {handleSubmitPro}>
           <label>
             Professional summary
             <textarea placeholder = "Add a brief description"value = {aux.asummary} onChange={(e) => setAux({...aux, asummary: e.target.value})}/>
           </label>
 
-          <button>Submit</button>
+          <button className= "submitbutton">Submit</button>
         </form>
   )
 }
@@ -149,23 +152,24 @@ export function Skills({setItems}){
 
   return(
     <form onSubmit= {handleSubmit}>
+      <ul className="listskill">
       {inputs.map((content, index) => (
-        <div className = "Base">
-          <input
-            type = "text"
-            key ={index}
-            value = {content}
-            onChange = {e => handleChangeInput(index, e.target.value)}
-            placeholder = "Enter your skill"
-          />
-          <button onClick = {e => handleDeleteInput(e, index)}>O</button>
-        </div>
-      ))}
-
-      <div>
-        <button onClick = {handleAddInput}>Add</button>
+          <li className = "Base" key ={index}>
+            <input
+              type = "text"
+              value = {content}
+              onChange = {e => handleChangeInput(index, e.target.value)}
+              placeholder = "Enter your skill"
+              id="skilltext"
+            />
+            <button onClick = {e => handleDeleteInput(e, index)} className= "delbutton"><img src={trash} className= "trashicon"/></button>
+          </li>
+        ))}
+      </ul>
+      <div className= "selectionbuttons">
+        <button type= "button" onClick = {handleAddInput}>Add</button>
         <button type= 'submit'>Submit</button>
-        <button onClick = {() => setItems([])}>Delete Skills</button>
+        <button type= 'submit' onClick = {() => setItems([])}>Delete Skills</button>
       </div>
     </form>
   )
@@ -202,55 +206,56 @@ export function Education({setEds}){
 
   return(
     <form>
-      {inputs.map((item, index) => (
-        <div key = {index}>
-          <div className = "Base">
-            <h2>School History {index + 1}</h2>
-            <button onClick = {e => handleDeleteInput(e, index)}>O</button>
-          </div>
-          
+      <ul className="licontainer">
+          {inputs.map((item, index) => (
+            <li key = {index} className="edwcontainer">
+              <div className = "Base">
+                <h2 className="edwtitles">School History {index + 1}</h2>
+                <button onClick = {e => handleDeleteInput(e, index)} className= "delbutton"><img src={trash} className= "trashicon"/></button>
+              </div>
+              
 
-          <label>
-            School
-            <input type= "text" placeholder = "Enter your school name" value={item.school} onChange= {e => handleChangeInput(index, "school", e.target.value)}/>
-          </label>
+              <label>
+                School
+                <input type= "text" placeholder = "Enter your school name" value={item.school} onChange= {e => handleChangeInput(index, "school", e.target.value)}/>
+              </label>
 
-          <label>
-            School location
-            <input type= "text" placeholder = "Enter your school location" value = {item.location} onChange= {e => handleChangeInput(index, "location", e.target.value)}/>
-          </label>
+              <label>
+                School location
+                <input type= "text" placeholder = "Enter your school location" value = {item.location} onChange= {e => handleChangeInput(index, "location", e.target.value)}/>
+              </label>
 
-          <label>
-            Degree
-            <input type= "text" placeholder = "Enter the name of your degree" value = {item.degree} onChange= {e => handleChangeInput(index, "degree", e.target.value)}/>
-          </label>
+              <label>
+                Degree
+                <input type= "text" placeholder = "Enter the name of your degree" value = {item.degree} onChange= {e => handleChangeInput(index, "degree", e.target.value)}/>
+              </label>
 
-          <label>
-            Degree description
-            <textarea type= "text" placeholder = "Describe your degree" value = {item.description} onChange= {e => handleChangeInput(index, "description", e.target.value)}/>
-          </label>
+              <label>
+                Degree description
+                <textarea type= "text" placeholder = "Describe your degree" value = {item.description} onChange= {e => handleChangeInput(index, "description", e.target.value)}/>
+              </label>
 
-        <div className = "datescontainer">
-          <label>
-            Start Date
-            <input type= "date" value = {item.startdate} onChange ={e=> handleChangeInput(index, "startdate", e.target.value)}/>
-          </label>
+            
+              <label>
+                Start Date
+                <input type= "date" value = {item.startdate} onChange ={e=> handleChangeInput(index, "startdate", e.target.value)}/>
+              </label>
 
-          <label>
-            End Date
-            <input type= "date" value = {item.enddate} onChange ={e=> handleChangeInput(index, "enddate", e.target.value)}/>
-          </label>
-        </div>
-          
+              <label>
+                End Date
+                <input type= "date" value = {item.enddate} onChange ={e=> handleChangeInput(index, "enddate", e.target.value)}/>
+              </label>
 
-        </div> 
-      ))}
-
-      <div className = "buttonContainer">
+            </li> 
+          ))}
+    </ul>
+      <div className= "selectionbuttons">
         <button type= "button" onClick= {handleAddInput}>Add</button>
         <button type = "submit" onClick = {handleSubmit}>Submit</button>
         <button onClick = {handleClean}>Clean Education</button>
       </div>
+
+      
     </form>
   )
 }
@@ -281,14 +286,13 @@ export function WorkExp({setWorks}){
 
   return(
     <form>
-      <ul>
-        <li>
+      <ul className="licontainer">
           {inputs.map((input,index) => (
-            <div key= {index}>
+            <li key= {index} className= "edwcontainer">
 
               <div className = "Base">
-                <h2>Job {index+1}</h2>
-                <button onClick = {e => handleDeleteInput(e, index)}>O</button>
+                <h2 className="edwtitles">Job {index+1}</h2>
+                <button onClick = {e => handleDeleteInput(e, index)} className= "delbutton"><img src={trash} className= "trashicon"/></button>
               </div>
 
               <label>
@@ -320,13 +324,15 @@ export function WorkExp({setWorks}){
                 End date
                 <input type= "date" value = {input.enddate} onChange = {e => handleChange(index, "enddate", e.target.value)}/>
               </label>
-            </div>
+            </li>
           ))}
-        </li>
       </ul>
 
-      <button onClick = {e => handleAdd(e)}>Add</button>
-      <button onClick = {e => handleSubmit(e)}>Submit</button>
+      <div className= "selectionbuttons">
+        <button onClick = {e => handleAdd(e)}>Add</button>
+        <button onClick = {e => handleSubmit(e)}>Submit</button>
+      </div>
+      
     </form>
   )
 }
@@ -344,7 +350,7 @@ export function CustomInfo({setCustom}){
   }
 
   return(
-    <form>
+    <form className="Moreinfo">
       <label>
         Title
         <input type ="text" placeholder = "Enter the title" value = {input.title} onChange = {e => handleChange(e.target.value, "title")}/>
@@ -355,7 +361,7 @@ export function CustomInfo({setCustom}){
         <textarea placeholder = "Enter the description" value = {input.description} onChange = {e => handleChange(e.target.value, "description")}/>
       </label>
 
-      <button onClick = {e => handleSubmit(e)}>Submit</button>
+      <button type= "submit" className= "submitbutton" onClick = {e => handleSubmit(e)}>Submit</button>
     </form>
   )
 }

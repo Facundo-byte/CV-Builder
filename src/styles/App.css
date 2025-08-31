@@ -1,7 +1,15 @@
 /*MAIN CONTAINERS */
-body {
-  padding: 0;
-  margin: 0 0 0 0;
+
+*{
+  font-family: fuente1;
+}
+
+body,p {
+  margin: 0 0 0 10px;
+}
+
+h3{
+  margin: 10px;
 }
 
 li,
@@ -17,24 +25,72 @@ label {
   gap: 5px;
 }
 
-button{
+button {
+  height: 40px;
+  min-width: 40px;
+  background-color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid;
+  border-color: transparent;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #000000;
+  box-shadow: 0 0 0 2px #ffffff;
   cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  background-color: #d4d4d4;
+  border-radius: 12px;
+}
+
+button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 1px rgb(61, 61, 61);
+}
+
+input[type="text"], textarea, input[type="date"]{
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(233, 233, 233);
+  padding: 0px 0px 0px 10px;
+}
+
+textarea{
+  padding: 10px 0px 0px 10px;
+  max-width: 90%;
+  min-width: 90%;
+  max-height: 100px;
+}
+
+h1{
+  text-align: center;
+  font-size: 45px;
+}
+
 
 .mainContainer {
   display: flex;
   justify-content: center;
   align-content: center;
+  align-items: flex-start;
   box-sizing: border-box;
+  padding: 10px 0px 10px 0px
 }
 
 .contIzquierdo {
-  width: 500px;
+  width: 400px;
   min-height: 100%;
-  background-color: red;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -42,37 +98,37 @@ button{
   min-width: 800px;
   max-width: 1000px;
   min-height: 100%;
-  background-color: rgb(116, 116, 116);
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgb(58, 58, 58);
 }
 
 /* CONTAINERS DE INFO */
 
 .Info {
-  background-color: rgb(65, 65, 65);
+  background-color: rgb(255, 255, 255);
   width: 350px;
   min-height: 50px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  border-radius: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgb(58, 58, 58);
   box-sizing: border-box;
-}
-
-.Base {
-  display: flex;
-  flex-direction: row;
-  gap: 75px;
+  padding: 20px;
 }
 
 .Moreinfo {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: all 2s ease;
 }
 
 #titleslabel{
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   gap: 30px;
   width: 100%;
 }
@@ -82,19 +138,83 @@ button{
 }
 
 
-/* Curriculum */
+.selectionbuttons{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px 0px 0px 0px;
+}
 
-.mainCV {
+.submitbutton{
+  height: 40px;
+  width: 60px;
+}
+
+.Base{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+#skilltext{
+  width: 75%;
+}
+
+.delbutton{
+  border: 2px solid rgb(63, 63, 63);
+}
+
+.trashicon{
+  height: 30px;
+  width: 100%;
+}
+
+.listskill{
   display: flex;
   flex-direction: column;
-  padding: 10px 75px 10px 75px;
+  gap: 5px;
+}
+
+.edwcontainer{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.edwtitles{
+  margin: 0px;
+}
+
+.licontainer{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+/* Curriculum */
+
+.Title {
+  text-align: center;
+  display: inline-block;   
+  border-bottom: 3px solid black;
+  padding-bottom: 2px;    
+}
+
+.mainCV {
+  min-height: 1100px;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 75px 75px 75px;
+  box-sizing: border-box;
+  gap: 20px;
 }
 
 .General,
 .Summary,
 .Skills,
 .Education,
-.Work {
+.Work,
+.CustomInfo {
   display: flex;
   flex-direction: column;
 }
@@ -102,7 +222,15 @@ button{
 .Social {
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  gap: 40px;
+  justify-content: center;
+}
+
+.Socials{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 .ItemsSkills {
@@ -110,10 +238,23 @@ button{
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   padding: 0px 0px 10px 0px;
+  justify-content: center;
+  align-items: center;
 }
 
 .LocationandDate {
   display: flex;
   flex-direction: row;
-  gap: 140px;
+  justify-content: space-between;
+}
+
+.SocialIcons{
+  width: 25px;
+  height: 25px;
+}
+
+.items{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
