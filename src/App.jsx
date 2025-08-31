@@ -4,8 +4,14 @@ import Information from "./components/ButtonComps.jsx"
 import "./styles/App.css"
 import "./styles/Fonts.css"
 
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 
 export default function Interface() {
+
+  const contentRef = useRef(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
+
   const [person, setPerson] = useState({
   name: "Sofía Martínez",
   email: "sofia.martinez@gmail.com",
@@ -61,9 +67,10 @@ const [works, setWorks] = useState([
         <Information title="Education" setEds = {setEds}/>
         <Information title="Work experience" setWorks = {setWorks}/>
         <Information title="Custom information" setCustom = {setCustom}/>
+        <button onClick={reactToPrintFn} id="printbutton">Print</button>
       </div>
       <div className="contDerecho">
-        <Curriculum person = {person} items = {items} eds = {eds} works = {works} custom ={custom}/>
+        <Curriculum ref= {contentRef} person = {person} items = {items} eds = {eds} works = {works} custom ={custom}/>
       </div>
     </div>
   );

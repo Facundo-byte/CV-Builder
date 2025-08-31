@@ -3,10 +3,11 @@ import mail from "../assets/mail.png";
 import phone from "../assets/phone.png";
 
 
+
 /* CV */
-export default function Curriculum({ person, items, eds, works, custom }) {
+export default function Curriculum({ ref, person, items, eds, works, custom }) {
   return (
-    <div className="mainCV">
+    <div className="mainCV" ref={ref}>
       <div className="General">
         <h1>{person.name}</h1>
         <div className="Social">

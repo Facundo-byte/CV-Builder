@@ -190,6 +190,22 @@ h1{
   flex-direction: column;
   gap: 40px;
 }
+
+#printbutton{
+  height: 75px;
+  width: 300px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 20px;
+  color: white;
+  background-color: rgb(97, 97, 97);
+  box-shadow: 0 0 4px 0 rgb(58, 58, 58);
+}
+
+#printbutton:hover{
+  background-color: rgb(189, 189, 189);
+  color: rgb(0, 0, 0);
+}
 /* Curriculum */
 
 .Title {
