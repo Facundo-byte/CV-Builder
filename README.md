@@ -2,9 +2,12 @@
 
 **CV-Builder** is an interactive web application built with React and Vite that allows you to create a fully personalized professional résumé. Users can fill in different sections (Personal Information, Skills, Education, Work Experience, and more), and the CV updates in real time. It also supports easy export to PDF.
 
----
+## You can try it out here! 
 
-## ✨ Features
+https://cv-builder-rteo.vercel.app/
+
+
+## Features
 
 * **Modular sections**: Personal Info, Summary, Skills, Education, Work Experience, and Custom sections.
 * **Dynamic forms**: Expand each section to reveal inputs, and submit data to update the CV instantly.
@@ -15,7 +18,7 @@
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ```bash
 git clone https://github.com/Facundo-byte/CV-Builder.git
@@ -28,7 +31,7 @@ Then open `http://localhost:3000` (or whichever port Vite shows in the terminal)
 
 ---
 
-## 🖥️ How to Use
+## How to Use
 
 1. Navigate through the sections (toggle with the arrow button) to expand the form fields.
 2. Fill in the inputs and click **Submit** to apply changes to the CV in real time.
@@ -37,7 +40,7 @@ Then open `http://localhost:3000` (or whichever port Vite shows in the terminal)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * [React](https://react.dev/) with functional components & hooks
 * [Vite](https://vitejs.dev/) used for creating the project
@@ -46,7 +49,7 @@ Then open `http://localhost:3000` (or whichever port Vite shows in the terminal)
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 CV-Builder/
@@ -64,7 +67,7 @@ CV-Builder/
 
 ---
 
-## 🚧 Future Improvements
+## Future Improvements
 
 * Add smooth animations when expanding/collapsing sections.
 * Improve UI with themes (light/dark mode)
