@@ -106,7 +106,17 @@ export function MoreInfo({
 export function GeneralInfo({ aux, setAux, person, setPerson }) {
   function handleSubmitGeneral(e) {
     e.preventDefault();
+    const errors = {};
 
+    if (!aux.aname.trim()) errors.name = "El nombre es obligatorio";
+    if (!/\S+@\S+\.\S+/.test(aux.aemail)) errors.email = "Email inválido";
+    if (!/^[0-9]{8,15}$/.test(aux.aphone)) errors.phone = "Teléfono inválido";
+    if (!aux.alocation.trim()) errors.location = "La ubicación es obligatoria";
+
+    if (Object.keys(errors).length > 0) {
+      alert(Object.values(errors).join("\n"));
+      return;
+    }
     setPerson({
       ...person,
       name: aux.aname,
@@ -168,6 +178,10 @@ export function GeneralInfo({ aux, setAux, person, setPerson }) {
 export function ProSummary({ aux, setAux, person, setPerson }) {
   function handleSubmitPro(e) {
     e.preventDefault();
+    if (aux.asummary.length < 20) {
+      alert("El resumen debe tener al menos 20 caracteres");
+      return;
+    }
     setPerson({ ...person, summary: aux.asummary });
   }
 
@@ -203,8 +217,15 @@ export function Skills({ setItems }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setItems([...inputs]);
+    const cleaned = inputs.filter((s) => s.trim() !== "");
+    const unique = [...new Set(cleaned)];
+    if (unique.length === 0) {
+      alert("Agrega al menos una skill");
+      return;
+    }
+    setItems(unique);
   }
+
   function handleDeleteInput(e, index) {
     e.preventDefault;
     setInputs(inputs.filter((item, i) => i !== index));
@@ -270,6 +291,32 @@ export function Education({ setEds }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    for (const item of inputs) {
+      if (!item.school) {
+        alert("The name of school is required");
+        return;
+      }
+      if (!item.location) {
+        alert("The location is required");
+        return;
+      }
+      if (!item.degree) {
+        alert("The degree is required");
+        return;
+      }
+      if (!item.description) {
+        alert("The description is required");
+        return;
+      }
+      if (item.startdate && item.enddate && item.startdate > item.enddate) {
+        alert("The startdate cant be bigger than the enddate");
+        return;
+      }
+      if (!item.startdate || !item.enddate) {
+        alert("Enter a valid date");
+        return;
+      }
+    }
     setEds([...inputs]);
   }
 
@@ -409,6 +456,32 @@ export function WorkExp({ setWorks }) {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    for (const item of inputs) {
+      if (!item.company) {
+        alert("The name of the company is required");
+        return;
+      }
+      if (!item.location) {
+        alert("The location is required");
+        return;
+      }
+      if (!item.role) {
+        alert("The role is required");
+        return;
+      }
+      if (!item.description) {
+        alert("The description of the job is required");
+        return;
+      }
+      if (item.startdate && item.enddate && item.startdate > item.enddate) {
+        alert("The startdate cant be bigger than the enddate");
+        return;
+      }
+      if (!item.startdate || !item.enddate) {
+        alert("Enter a valid date");
+        return;
+      }
+    }
     setWorks([...inputs]);
   }
 
@@ -515,6 +588,10 @@ export function CustomInfo({ setCustom }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!input.title.trim() || !input.description.trim()) {
+      alert("El título y la descripción son obligatorios");
+      return;
+    }
     setCustom({ ...input });
   }
 
