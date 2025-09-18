@@ -1,14 +1,15 @@
 /*MAIN CONTAINERS */
 
-*{
+* {
   font-family: fuente1;
 }
 
-body,p {
+body,
+p {
   margin: 0 0 0 10px;
 }
 
-h3{
+h3 {
   margin: 10px;
 }
 
@@ -55,7 +56,9 @@ button:active {
   box-shadow: 0 0 0 1px rgb(61, 61, 61);
 }
 
-input[type="text"], textarea, input[type="date"]{
+input[type="text"],
+textarea,
+input[type="date"] {
   height: 30px;
   border: none;
   border-radius: 5px;
@@ -63,18 +66,17 @@ input[type="text"], textarea, input[type="date"]{
   padding: 0px 0px 0px 10px;
 }
 
-textarea{
+textarea {
   padding: 10px 0px 0px 10px;
   max-width: 90%;
   min-width: 90%;
   max-height: 100px;
 }
 
-h1{
+h1 {
   text-align: center;
   font-size: 45px;
 }
-
 
 .mainContainer {
   display: flex;
@@ -82,7 +84,7 @@ h1{
   align-content: center;
   align-items: flex-start;
   box-sizing: border-box;
-  padding: 10px 0px 10px 0px
+  padding: 10px 0px 10px 0px;
 }
 
 .contIzquierdo {
@@ -95,7 +97,7 @@ h1{
 }
 
 .contDerecho {
-  min-width: 800px;
+  min-width: 700px;
   max-width: 1000px;
   min-height: 100%;
   background-color: rgb(255, 255, 255);
@@ -125,7 +127,7 @@ h1{
   transition: all 2s ease;
 }
 
-#titleslabel{
+#titleslabel {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -133,65 +135,64 @@ h1{
   width: 100%;
 }
 
-#titleslabel:hover{
+#titleslabel:hover {
   cursor: pointer;
 }
 
-
-.selectionbuttons{
+.selectionbuttons {
   display: flex;
   flex-direction: row;
   gap: 10px;
   padding: 10px 0px 0px 0px;
 }
 
-.submitbutton{
+.submitbutton {
   height: 40px;
   width: 60px;
 }
 
-.Base{
+.Base {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
 }
 
-#skilltext{
+#skilltext {
   width: 75%;
 }
 
-.delbutton{
+.delbutton {
   border: 2px solid rgb(63, 63, 63);
 }
 
-.trashicon{
+.trashicon {
   height: 30px;
   width: 100%;
 }
 
-.listskill{
+.listskill {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.edwcontainer{
+.edwcontainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.edwtitles{
+.edwtitles {
   margin: 0px;
 }
 
-.licontainer{
+.licontainer {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-#printbutton{
+#printbutton {
   height: 75px;
   width: 300px;
   border: 1px solid black;
@@ -202,17 +203,17 @@ h1{
   box-shadow: 0 0 4px 0 rgb(58, 58, 58);
 }
 
-#printbutton:hover{
+#printbutton:hover {
   background-color: rgb(189, 189, 189);
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 /* Curriculum */
 
 .Title {
   text-align: center;
-  display: inline-block;   
+  display: inline-block;
   border-bottom: 3px solid black;
-  padding-bottom: 2px;    
+  padding-bottom: 2px;
 }
 
 .mainCV {
@@ -242,7 +243,7 @@ h1{
   justify-content: center;
 }
 
-.Socials{
+.Socials {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -264,13 +265,97 @@ h1{
   justify-content: space-between;
 }
 
-.SocialIcons{
+.SocialIcons {
   width: 25px;
   height: 25px;
 }
 
-.items{
+.items {
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+@media screen and (max-width: 1400px) {
+  .contIzquierdo {
+    width: 300px;
+  }
+  h1 {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 25px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  p {
+    font-size: 15px;
+  }
+  .Social {
+    gap: 9px;
+  }
+
+  .Socials {
+    gap: 1px;
+  }
+  #printbutton {
+    height: 75px;
+    width: 250px;
+  }
+
+  .contDerecho {
+    min-width: 600px;
+    max-width: 800px;
+  }
+
+  .mainCV {
+    width: 800px;
+  }
+  .Info {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  p {
+    font-size: 15px;
+  }
+  .contIzquierdo {
+    width: 250px;
+  }
+
+  .Info {
+    width: 230px;
+  }
+
+  .Social {
+    gap: 9px;
+  }
+
+  .Socials {
+    gap: 1px;
+  }
+  #printbutton {
+    height: 75px;
+    width: 200px;
+  }
+
+  .contDerecho {
+    min-width: 600px;
+    max-width: 800px;
+  }
+
+  .mainCV {
+    width: 650px;
+  }
 }
