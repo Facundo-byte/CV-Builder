@@ -1,31 +1,44 @@
 import location from "../assets/location.png";
 import mail from "../assets/mail.png";
 import phone from "../assets/phone.png";
-
-
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 /* CV */
 export default function Curriculum({ ref, person, items, eds, works, custom }) {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start({
+      opacity: [0, 1], // pequeño flash para indicar cambio
+      transition: { duration: 0.4 },
+    });
+  }, [controls, person, items, eds, works, custom]);
+
   return (
-    <div className="mainCV" ref={ref}>
+    <motion.div
+      className="mainCV"
+      ref={ref}
+      initial={{ opacity: 0 }}
+      animate={controls}
+    >
       <div className="General">
         <h1>{person.name}</h1>
         <div className="Social">
-          <div className= "Socials">
-            <img src= {mail} className= "SocialIcons"/>
+          <div className="Socials">
+            <img src={mail} className="SocialIcons" />
             <h3>{person.email}</h3>
           </div>
-          
-          <div className= "Socials">
-            <img src= {phone} className= "SocialIcons"/>
+
+          <div className="Socials">
+            <img src={phone} className="SocialIcons" />
             <h3>{person.phone}</h3>
           </div>
-          
-          <div className= "Socials">
-            <img src= {location} className= "SocialIcons"/>
+
+          <div className="Socials">
+            <img src={location} className="SocialIcons" />
             <h3>{person.location}</h3>
           </div>
-          
         </div>
       </div>
 
@@ -36,35 +49,34 @@ export default function Curriculum({ ref, person, items, eds, works, custom }) {
 
       <div className="Education">
         <h2 className="Title">EDUCATION</h2>
-        <ul className= "items">
+        <ul className="items">
           {eds.map((ed, index) => (
-            <li key= {index}>
-            <EdandWork
-              place={ed.school}
-              location={ed.location}
-              startdate={ed.startdate}
-              enddate={ed.enddate}
-              title={ed.degree}
-              desc={ed.description}
-            />
-          </li>
+            <li key={index}>
+              <EdandWork
+                place={ed.school}
+                location={ed.location}
+                startdate={ed.startdate}
+                enddate={ed.enddate}
+                title={ed.degree}
+                desc={ed.description}
+              />
+            </li>
           ))}
-          
         </ul>
       </div>
 
       <div className="Work">
         <h2 className="Title">WORK EXPERIENCE</h2>
-        <ul className= "items">
+        <ul className="items">
           {works.map((work, index) => (
-            <li key = {index}>
+            <li key={index}>
               <EdandWork
-                place= {work.company}
-                location= {work.location}
-                startdate= {work.startdate}
-                enddate= {work.enddate}
-                title= {work.role}
-                desc= {work.description}
+                place={work.company}
+                location={work.location}
+                startdate={work.startdate}
+                enddate={work.enddate}
+                title={work.role}
+                desc={work.description}
               />
             </li>
           ))}
@@ -80,12 +92,11 @@ export default function Curriculum({ ref, person, items, eds, works, custom }) {
         </ul>
       </div>
 
-      <div className= "CustomInfo">
-          <h2 className = "Title">{custom.title}</h2>
-          <p>{custom.description}</p>
+      <div className="CustomInfo">
+        <h2 className="Title">{custom.title}</h2>
+        <p>{custom.description}</p>
       </div>
-
-    </div>
+    </motion.div>
   );
 }
 
@@ -116,4 +127,3 @@ export function EdandWork({
 }
 
 /* PRINT COMPONENT */
-
