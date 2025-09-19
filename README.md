@@ -4,7 +4,7 @@
 
 ## You can try it out here! 
 
-https://cv-builder-rteo.vercel.app/
+https://cv-builder-rteo-jfvuwlx7b-facundo-bytes-projects.vercel.app/
 
 
 ## Features
