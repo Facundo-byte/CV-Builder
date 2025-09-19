@@ -6,6 +6,7 @@
 
 https://cv-builder-rteo-jfvuwlx7b-facundo-bytes-projects.vercel.app/
 
+ [demonstration video](https://www.youtube.com/watch?v=cWUPNRhytH8)
 
 ## Features
 
