@@ -15,19 +15,7 @@ https://cv-builder-rteo.vercel.app/
 * **Export to PDF** directly from the browser using `react-to-print`.
 * **Reusable React components** with clean and maintainable code.
 * **Customizable styles** with CSS.
-
----
-
-## Installation
-
-```bash
-git clone https://github.com/Facundo-byte/CV-Builder.git
-cd CV-Builder
-npm install
-npm run dev
-```
-
-Then open `http://localhost:3000` (or whichever port Vite shows in the terminal).
+* * **Smooth animations** with Framer Motion.
 
 ---
 
@@ -64,11 +52,4 @@ CV-Builder/
 ├── vite.config.js
 └── README.md
 ```
-
----
-
-## Future Improvements
-
-* Add smooth animations when expanding/collapsing sections.
-* Improve UI with themes (light/dark mode)
 
